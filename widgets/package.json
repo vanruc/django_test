@@ -1,0 +1,28 @@
+{
+  "name": "widgets",
+  "version": "1.0.0",
+  "description": "Widgets for growing online store",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode production && cp ./dist/e-widgets.v1.min.js ../static/js/",
+    "start": "webpack --mode development --watch",
+    "serve": "webpack serve --mode development"
+  },
+  "author": "Konigle Pte Ltd",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.18.2",
+    "@babel/preset-env": "^7.18.2",
+    "@babel/preset-react": "^7.17.12",
+    "babel-loader": "^8.2.5",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.11.1",
+    "webpack-merge": "^5.8.0"
+  },
+  "dependencies": {
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
+  }
+}

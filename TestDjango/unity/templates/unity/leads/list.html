@@ -1,0 +1,76 @@
+{% extends "unity/base.html" %}
+{% block title %}My Blog{% endblock %}
+{% load humanize %}
+
+{% block content %}
+<div class="container px-4 py-5">
+    <h2 class="pb-2 border-bottom">Unity</h2>
+
+    <h3>{% now "M, Y" %}</h3>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-text">Email list</p>
+                    <h5 class="card-title">{{ total_leads }}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-text">New this month</p>
+                    <h5 class="card-title">{{ current_month_leads_count }}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-text">Unsubscribed</p>
+                    <h5 class="card-title">{{ unsub_leads }}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Email ID</th>
+            <th scope="col">Timestamp</th>
+            <th scope="col">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for lead in leads %}
+        <tr>
+            <td>{{ lead.email_id }}</td>
+            <td>{{ lead.action_time | naturaltime }}</td>
+            <td>{{ lead.get_status_display }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if leads.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ leads.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ leads.number }} of {{ leads.paginator.num_pages }}.
+            </span>
+
+            {% if leads.has_next %}
+                <a href="?page={{ leads.next_page_number }}">next</a>
+                <a href="?page={{ leads.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
+</div>
+
+{% endblock %}
