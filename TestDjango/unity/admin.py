@@ -9,4 +9,4 @@ class LeadsAdmin(admin.ModelAdmin):
 
 @admin.register(Store)
 class StoreAdmin(admin.ModelAdmin):
-    list_display = ['store_name', 'store_address']
+    list_display = ['store_name', 'store_email', 'store_address']

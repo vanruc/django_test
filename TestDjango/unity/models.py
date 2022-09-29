@@ -4,6 +4,7 @@ from django.utils import timezone
 
 class Store(models.Model):
     store_name = models.CharField(max_length=255)
+    store_email = models.EmailField(max_length=254)
     store_address = models.CharField(max_length=500)
 
     def __str__(self):
