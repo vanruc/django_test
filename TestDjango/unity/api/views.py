@@ -2,7 +2,9 @@ import django.core.exceptions
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from unity.models import Leads
+
+import unity.models
+from unity.models import Leads, Store
 from unity.api.serializers import LeadsSerializer
 from django.core.validators import validate_email
 from rest_framework.authentication import TokenAuthentication
@@ -20,17 +22,33 @@ class LeadsSubscribe(APIView):
 
     def post(self, request):
         ressult_str = {}
+        # get and validate email
         req_email = request.data['email']
         try:
             validate_email(req_email)
-            leads = Leads(email_id=request.data['email'])
-            leads.save()
-            ressult_str = {
-                'subscribed': 'success'
-            }
         except django.core.exceptions.ValidationError as e:
-            ressult_str = {
+            return Response({
                 'issue': e.message
-            }
+            })
 
-        return Response(ressult_str)
+        # get and validate Store
+        # note: store id was hard coded to test multiple store concept
+        store_id = 1
+        try:
+            store_obj = Store.objects.get(id=store_id)
+        except Exception as e:
+            return Response({
+                'issue': e.message
+            })
+
+        try:
+            leads = Leads(store=store_obj, email_id=req_email)
+            leads.save()
+        except Exception as e:
+            return Response({
+                'issue': e.message
+            })
+
+        return Response({
+            'subscribed': 'success'
+        })
