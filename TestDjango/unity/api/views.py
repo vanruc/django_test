@@ -3,7 +3,7 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-import unity.models
+from pprint import pprint
 from unity.models import Leads, Store
 from unity.api.serializers import LeadsSerializer
 from django.core.validators import validate_email
@@ -21,7 +21,6 @@ class LeadsSubscribe(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
-        ressult_str = {}
         # get and validate email
         req_email = request.data['email']
         try:

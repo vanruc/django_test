@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django_crontab',
     'unity.apps.UnityConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -123,7 +124,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
-    '../static/',
+    '../static/css/',
+    '../static/js/',
 ]
 
 # Default primary key field type
@@ -137,4 +139,9 @@ REST_FRAMEWORK = {
     ]
 }
 CORS_ORIGIN_ALLOW_ALL = True
+
+CRONJOBS = [
+    ('0 0 * * MON', 'unity.cron.my_scheduled_job'),
+    ('0 0 * * WED', 'unity.cron.my_scheduled_job'),
+]
 
