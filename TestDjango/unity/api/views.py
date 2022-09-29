@@ -5,6 +5,8 @@ from rest_framework.response import Response
 from unity.models import Leads
 from unity.api.serializers import LeadsSerializer
 from django.core.validators import validate_email
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 
 class LeadsListView(generics.ListAPIView):
@@ -13,8 +15,10 @@ class LeadsListView(generics.ListAPIView):
 
 
 class LeadsSubscribe(APIView):
-    def post(self, request):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
+    def post(self, request):
         ressult_str = {}
         req_email = request.data['email']
         try:

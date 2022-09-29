@@ -24,7 +24,8 @@ export const LeadWidget = function (props) {
     fetch(LEAD_API, {
       method: 'post',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': 'Token eadc90c6bcf3d2381480b25cf9bdeb852ce8510a'
       },
       body: JSON.stringify({
         email: email
